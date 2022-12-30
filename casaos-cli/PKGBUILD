@@ -6,7 +6,7 @@ pkgdesc='A command-line tool to interact with CasaOS for testing and diagnosing 
 arch=('x86_64' 'aarch64' 'armv7h')
 url="https://github.com/IceWhaleTech/CasaOS-CLI"
 license=('APACHE')
-depends=()
+groups=('casaos')
 
 source_x86_64=(
     ${url}/releases/download/v${pkgver}/linux-amd64-${pkgname}-v${pkgver}.tar.gz

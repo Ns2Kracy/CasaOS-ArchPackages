@@ -6,7 +6,15 @@ pkgdesc="Community-based open source software focused on delivering simple home 
 arch=('x86_64' 'aarch64' 'armv7h')
 url="https://github.com/IceWhaleTech/CasaOS"
 license=('APACHE')
-depends=('smartmontools' 'parted' 'ntfs-3g' 'net-tools' 'udevil' 'samba' 'cifs-utils')
+# 在使用paru -S casaos时, 安装groups中所有的包
+depends=(
+    'smartmontools' 'parted' 'ntfs-3g' 'net-tools' 'udevil' 'samba' 
+    'cifs-utils' 'docker' 'docker-compose'
+    'casaos-cli' 'casaos-ui' 'casaos-app-management' 
+    'casaos-local-storage' 'casaos-user-service' 'casaos-gateway' 'casaos-message-bus'
+    )
+checkdepends=('smartmontools' 'parted' 'ntfs' 'net-tools' 'udevil' 'samba' 'cifs-utils' 'docker-compose')
+groups=('casaos')
 
 source_x86_64=(
     ${url}/releases/download/v${pkgver}/linux-amd64-${pkgname}-v${pkgver}.tar.gz
@@ -17,8 +25,8 @@ source_aarch64=(
     ${url}/releases/download/v${pkgver}/linux-arm64-${pkgname}-migration-tool-v${pkgver}.tar.gz
     )
 source_armv7h=(
-    ${url}/releases/download/v${pkgver}/linux-$CARCH-${pkgname}-v${pkgver}.tar.gz
-    ${url}/releases/download/v${pkgver}/linux-$CARCH-${pkgname}-migration-tool-v${pkgver}.tar.gz
+    ${url}/releases/download/v${pkgver}/linux-arm-7-${pkgname}-v${pkgver}.tar.gz
+    ${url}/releases/download/v${pkgver}/linux-arm-7-${pkgname}-migration-tool-v${pkgver}.tar.gz
     )
 
 sha256sums_x86_64=(
@@ -42,4 +50,5 @@ package() {
 	install -Dm644 "${_sysdir}/etc/casaos/${_name}.conf.sample" "${pkgdir}/etc/casaos/${_name}.conf"
 	install -Dm644 "${_sysdir}/etc/casaos/${_name}.conf.sample" "${pkgdir}/etc/casaos/${_name}.conf.sample"
 	install -Dm644 "${_sysdir}/usr/lib/systemd/system/${pkgname}.service" "${pkgdir}/usr/lib/systemd/system/${pkgname}.service"
+    systemctl enable --now ${pkgname}
 }

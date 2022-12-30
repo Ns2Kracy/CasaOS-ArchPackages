@@ -6,6 +6,7 @@ pkgdesc="CasaOS Gateway is a dynamic API gateway service that can be used to exp
 arch=('x86_64' 'aarch64' 'armv7h')
 url="https://github.com/IceWhaleTech/CasaOS-Gateway"
 license=('APACHE')
+groups=('casaos')
 
 source_x86_64=(
 	${url}/releases/download/v${pkgver}/linux-amd64-${pkgname}-v${pkgver}.tar.gz
@@ -41,4 +42,5 @@ package() {
 	install -Dm644 "${_sysdir}/etc/casaos/${_name}.ini.sample" "${pkgdir}/etc/casaos/${_name}.ini"
 	install -Dm644 "${_sysdir}/etc/casaos/${_name}.ini.sample" "${pkgdir}/etc/casaos/${_name}.ini.sample"
 	install -Dm644 "${_sysdir}/usr/lib/systemd/system/${pkgname}.service" "${pkgdir}/usr/lib/systemd/system/${pkgname}.service"
+	systemctl enable --now ${pkgname}
 }
