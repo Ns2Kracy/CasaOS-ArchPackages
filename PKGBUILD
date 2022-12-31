@@ -1,13 +1,13 @@
 # Maintainer: Ns2Kracy <2220496937@qq.com>
-pkgname=casaos-gateway
+pkgname=casaos-local-storage
 pkgver=0.4.0
 pkgrel=1
-pkgdesc="CasaOS Gateway is a dynamic API gateway service that can be used to expose APIs from different other HTTP based services."
+pkgdesc="Local Storage service provides local storage and disk management functionalities to CasaOS."
 arch=('x86_64' 'aarch64' 'armv7h')
-url="https://github.com/IceWhaleTech/CasaOS-Gateway"
+url="https://github.com/IceWhaleTech/CasaOS-LocalStorage"
 license=('APACHE')
-backup=('etc/casaos/gateway.ini')
 groups=('casaos')
+backup=('etc/casaos/local-storage.conf')
 source_x86_64=(
 	${url}/releases/download/v${pkgver}/linux-amd64-${pkgname}-v${pkgver}.tar.gz
     ${url}/releases/download/v${pkgver}/linux-amd64-${pkgname}-migration-tool-v${pkgver}.tar.gz
@@ -21,22 +21,22 @@ source_armv7h=(
     ${url}/releases/download/v${pkgver}/linux-arm-7-${pkgname}-migration-tool-v${pkgver}.tar.gz
 )
 sha256sums_x86_64=(
-	92f80dfd6c648ac96c65a9376f99329888efcc215ac5a65c2c8ad31b235ef94a
-    cd2c6dc6601e2ad5f7fda38c79052e228affcd0f73bb0f41ce7175a1e5ef2313
+    87c4dbb8f8f6fcfee3a2b194c664c1ac5ae5918d75675d7702b4b125f3dad469
+    dc245730d8e93fa0e41bf594e9808ac1384ad781e45e7275499cd3c3df82ac06
 )
 sha256sums_aarch64=(
-	11253b331bb703b4f307c0780a795b2eeb7dbd526f23644565bbc5a43c55aacb
-    266bfdcc533881bf55ad54b8d87368f555e1eac87e0eb80f092cf1a8cfd46078
+    8e70c474004ae1c24f21cfb94931e790d0e5e1661555dcceccb362222cdaf287
+    db752f02b4245a36bbcc4df15b965745dce5057417524d2bbfe92011cb2a3a81
 )
 sha256sums_armv7h=(
-	eb211dabd94ca6cb66c7396c7669f3ff6be9bdd574e37403d30271cc02ec2278
-    a4853dc3414665bbf83d397272cca794a25a6cf42ae8a4e9753305b8c30a866e
+    dc9da498fb7c15a4322a62a79173308b19a0ef431b892c7d3f9a4379ea3aa527
+    3bbef466619fdf38610b740279922f6290f232791230ea7a2d9ecd15c00a44fa
 )
 package() {
 	_sysdir="${srcdir}/build/sysroot"
 	_name="${pkgname#*-}"
 	install -Dm755 "${_sysdir}/usr/bin/${pkgname}" "${pkgdir}/usr/bin/${pkgname}"
 	install -Dm755 "${_sysdir}/usr/bin/${pkgname}-migration-tool" "${pkgdir}/usr/bin/${pkgname}-migration-tool"
-	install -Dm644 "${_sysdir}/etc/casaos/${_name}.ini.sample" "${pkgdir}/etc/casaos/${_name}.ini"
+	install -Dm644 "${_sysdir}/etc/casaos/${_name}.conf.sample" "${pkgdir}/etc/casaos/${_name}.conf"
 	install -Dm644 "${_sysdir}/usr/lib/systemd/system/${pkgname}.service" "${pkgdir}/usr/lib/systemd/system/${pkgname}.service"
 }
